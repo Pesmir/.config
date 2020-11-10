@@ -11,7 +11,6 @@ let mapleader=" "
 " Install Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'jessedhillon/vim-easycomment'
-Plug 'alfredodeza/pytest.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fancy Fuzzy Search
@@ -33,11 +32,15 @@ inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='bubblegum'
 let g:airline_powerline_fonts = 1
-"Filesearch for git
-nmap <C-P> :GFiles<CR>
+" Search
+nmap <C-p> :GFiles<CR>
+nmap <C-f> :BLines<CR>
 
-" Explorer
-nmap <space>e :CocCommand explorer<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " Start screen config
 let g:startify_lists = [
 	\{'type': 'sessions', 'header': ['	Sessions']},
