@@ -1,28 +1,27 @@
+" General settings
 syntax on
 set termguicolors
 set number relativenumber
-" Shared Clipboard
 set clipboard=unnamedplus
 filetype on
 
-autocmd FileType c setlocal shiftwidth=2 tabstop=2 noexpandtab
+
 " Define Leader Key as space
 let mapleader=" "
 
-" Disable Arrow keys in Normal mode
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+" Disable arrow keys until you learn to use vim correct
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+noremap <backspace> <Nop>
 
 " Install Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'vim-syntastic/syntastic'
-Plug 'jiangmiao/auto-pairs'
-Plug 'morhetz/gruvbox'
-Plug 'alfredodeza/pytest.vim'
+Plug 'jessedhillon/vim-easycomment'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fancy Fuzzy Search
 Plug 'junegunn/fzf.vim'
 Plug 'joshdick/onedark.vim' " Colorschem
@@ -34,33 +33,22 @@ call plug#end()
 colorscheme gruvbox
 " Autocompletion
 " Complete with tab instead of Enter
-" inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 
 " Statusbar :
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='bubblegum'
 let g:airline_powerline_fonts = 1
-"Filesearch for git
-nmap <C-P> :GFiles<CR>
-nmap <C-F> :Lines<CR>
-" Code Navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
+" Search
+nmap <C-p> :GFiles<CR>
+nmap <C-f> :BLines<CR>
 
-map <PageDown> 10jzz<CR>
-map <PageUp> 10kzz<CR>
-set scrolloff=10
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " Start screen config
 let g:startify_lists = [
@@ -72,3 +60,4 @@ let g:startify_lists = [
 let g:startify_bookmarks = [
 	\'~/.config/nvim/init.vim',
 	\]
+
