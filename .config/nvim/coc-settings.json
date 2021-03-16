@@ -6,5 +6,5 @@
 	"python.analysis.diagnosticPublishDelay": 1000,
 	"python.jediEnabled": true,
 	"python.linting.flake8Enabled": true,
-	"python.formatting.provider": "yapf"
+	"python.formatting.provider": "black"
 }
