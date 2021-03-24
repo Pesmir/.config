@@ -21,6 +21,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'jessedhillon/vim-easycomment'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
+Plug 'psliwka/vim-smoothie'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fancy Fuzzy Search
 Plug 'junegunn/fzf.vim'
@@ -36,6 +38,10 @@ colorscheme gruvbox
 inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 
+" Fugitive Conflict Resolution
+nnoremap <leader>gm :Gdiff<CR>
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
 
 " Statusbar :
 let g:airline#extensions#tabline#enabled = 1
