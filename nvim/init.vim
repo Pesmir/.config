@@ -4,6 +4,7 @@ set termguicolors
 set number relativenumber
 set clipboard=unnamedplus
 filetype on
+filetype plugin on
 
 
 " Define Leader Key as space
@@ -24,6 +25,11 @@ Plug 'fisadev/vim-isort'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
+if has('nvim') || has('patch-8.0.902')
+  Plug 'mhinz/vim-signify'
+else
+  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
 Plug 'psliwka/vim-smoothie'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fancy Fuzzy Search
 Plug 'junegunn/fzf.vim'
@@ -32,8 +38,15 @@ Plug 'morhetz/gruvbox'
 Plug 'mhinz/vim-startify' " start screen
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion and linting
 Plug 'airblade/vim-rooter'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-notes'
 call plug#end()
 
+" Notes
+let g:notes_directories = ['~/Documents/Notes']
+vmap <Leader>ns :NoteFromSelectedText<CR>
+ 
+" Colorscheme
 let g:tokyonight_style = 'night' " available: night, storm
 let g:tokyonight_enable_italic = 1
 colorscheme tokyonight
