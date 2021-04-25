@@ -132,6 +132,7 @@ nnoremap <leader>gcp :Git checkout -<CR>
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='tokyonight'
 let g:airline_powerline_fonts = 1
+
 " Search
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
@@ -147,7 +148,8 @@ nnoremap <leader>gc <cmd>lua require('telescope.builtin').git_commits()<cr>
 nnoremap <leader>gb <cmd>lua require('telescope.builtin').git_branches()<cr>
 nnoremap <leader>gw <cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>
 
-
+"Debugger
+nnoremap <leader>dbg :call vimspector#Launch()<CR>
 
 " Start screen config
 let g:startify_lists = [
