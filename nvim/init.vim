@@ -106,6 +106,8 @@ let g:vim_isort_config_overrides = {
 nnoremap <leader>gm :Gdiff<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
+nnoremap <leader>ggc :Git commit<CR>
+nnoremap <leader>ggp :Git push<CR>
 
 " Statusbar :
 let g:airline#extensions#tabline#enabled = 1
