@@ -1,11 +1,20 @@
 " General settings
 syntax on
+filetype plugin on
 set termguicolors
 set number relativenumber
 set clipboard=unnamedplus
-filetype on
-filetype plugin on
-
+set nohlsearch
+set hidden
+set smartcase
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+set incsearch
+set scrolloff=10
+set signcolumn=yes
+set colorcolumn=88
 
 " Define Leader Key as space
 let mapleader=" "
@@ -21,15 +30,20 @@ noremap <backspace> <Nop>
 call plug#begin('~/.vim/plugged')
 Plug 'jessedhillon/vim-easycomment'
 Plug 'mhinz/vim-startify' " start screen
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion and linting
 
 " LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion and linting
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+
+" Debugger
+Plug 'puremourning/vimspector'
 
 " Python
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'fisadev/vim-isort'
 
+" Statusbar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -71,6 +85,7 @@ hi Normal ctermbg=NONE guibg=NONE
 inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Python
 " Python LSP
+" LSP
 lua << EOF
 require'lspconfig'.pyright.setup{}
 local nvim_lsp = require('lspconfig')
@@ -93,6 +108,8 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
 EOF
+set completeopt=menuone,noinsert,noselect
+let g:completion_matchin_strategy_list = ['exact', 'substring', 'fuzzy']
 
 let g:vim_isort_map = '<C-i>' " sorting of imports with CTRL-i in visual mode
 let g:vim_isort_config_overrides = {
