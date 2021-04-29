@@ -56,8 +56,11 @@ else
   Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
 endif
 
+" Colorschem
+Plug 'ghifarit53/tokyonight-vim' 
+Plug 'tiagovla/tokyodark.nvim'
+
 " Misc
-Plug 'ghifarit53/tokyonight-vim' " Colorschem
 Plug 'airblade/vim-rooter'
 Plug 'psliwka/vim-smoothie'
 Plug 'xolox/vim-misc'
@@ -70,15 +73,18 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
+" Terminal 
+tnoremap <Esc> <C-\><C-n>
 
 " Notes
 let g:notes_directories = ['~/Documents/Notes']
 vmap <Leader>ns :NoteFromSelectedText<CR>
  
 " Colorscheme
-let g:tokyonight_style = 'night' " available: night, storm
-let g:tokyonight_enable_italic = 1
-colorscheme tokyonight
+let g:tokyodark_enable_italic_comment = 1
+let g:tokyodark_enable_italic = 1
+let g:tokyodark_color_gamma = "1.0"
+colorscheme tokyodark
 hi Normal ctermbg=NONE guibg=NONE
 " Autocompletion
 " Complete with tab instead of Enter
