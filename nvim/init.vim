@@ -38,10 +38,13 @@ Plug 'nvim-lua/completion-nvim'
 
 " Debugger
 Plug 'puremourning/vimspector'
+Plug 'sagi-z/vimspectorpy', { 'do': { -> vimspectorpy#update() } }
+
 
 " Python
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'fisadev/vim-isort'
+Plug 'vim-test/vim-test'
 
 " Statusbar
 Plug 'vim-airline/vim-airline'
@@ -90,21 +93,28 @@ hi Normal ctermbg=NONE guibg=NONE
 " Complete with tab instead of Enter
 inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Python
+"Test Configuration
+let  pdb_str = nvim_replace_termcodes("oimport pdb; pdb.set_trace()<ESC>", v:true, v:false, v:true)
+nnoremap <leader>pdb :call nvim_feedkeys(pdb_str, 'n', v:true)<CR>
+let test#python#pytest#options = {
+			\ 'nearest': '-o addopts="" --pdb',
+			\ 'file': '-o addopts="" --pdb'
+			\}
 " Python LSP
 " LSP
 lua << EOF
-require'lspconfig'.pyright.setup{}
-local nvim_lsp = require('lspconfig')
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+	require'lspconfig'.pyright.setup{}
+	local nvim_lsp = require('lspconfig')
+	local on_attach = function(client, bufnr)
+	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+	buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+	-- Mappings.
+	local opts = { noremap=true, silent=true }
+	buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+	buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 end
 
 -- Use a loop to conveniently both setup defined servers 
@@ -156,6 +166,12 @@ nnoremap <leader>gw <cmd>lua require('telescope').extensions.git_worktree.git_wo
 
 "Debugger
 nnoremap <leader>dbg :call vimspector#Launch()<CR>
+
+" Testing
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
 
 " Start screen config
 let g:startify_lists = [
