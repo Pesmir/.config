@@ -28,7 +28,6 @@ noremap <backspace> <Nop>
 
 " Install Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'jessedhillon/vim-easycomment'
 Plug 'mhinz/vim-startify' " start screen
 
 " LSP
@@ -64,6 +63,7 @@ Plug 'ghifarit53/tokyonight-vim'
 Plug 'tiagovla/tokyodark.nvim'
 
 " Misc
+Plug 'jessedhillon/vim-easycomment'
 Plug 'airblade/vim-rooter'
 Plug 'psliwka/vim-smoothie'
 Plug 'xolox/vim-misc'
@@ -172,6 +172,11 @@ nmap <silent> <leader>tn :TestNearest<CR>
 nmap <silent> <leader>tf :TestFile<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
+
+" Misc
+"  Comment
+vmap <silent> <C-_> :call ToggleCommentVisual()<CR>
+nmap <silent> <C-_> :call ToggleCommentLine()<CR>
 
 " Start screen config
 let g:startify_lists = [
