@@ -41,9 +41,13 @@ Plug 'sagi-z/vimspectorpy', { 'do': { -> vimspectorpy#update() } }
 
 
 " Python
+Plug 'jmcantrell/vim-virtualenv' 
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'fisadev/vim-isort'
 Plug 'vim-test/vim-test'
+
+" LaTeX
+Plug 'lervag/vimtex'
 
 " Statusbar
 Plug 'vim-airline/vim-airline'
@@ -64,7 +68,9 @@ Plug 'ghifarit53/tokyonight-vim'
 Plug 'tiagovla/tokyodark.nvim'
 
 " Misc
+Plug 'sirver/ultisnips'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jessedhillon/vim-easycomment'
 Plug 'airblade/vim-rooter'
 Plug 'psliwka/vim-smoothie'
@@ -95,16 +101,24 @@ colorscheme tokyonight
 " Autocompletion
 " Complete with tab instead of Enter
 inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Snippets
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
 " Python
 "Test Configuration
 let  pdb_str = nvim_replace_termcodes("oimport pdb; pdb.set_trace()<ESC>", v:true, v:false, v:true)
 nnoremap <leader>pdb :call nvim_feedkeys(pdb_str, 'n', v:true)<CR>
+let test#strategy = "neovim"
+let test#neovim#term_position = "vert botright"
 let test#python#pytest#options = {
 			\ 'nearest': '-o addopts="" --pdb',
 			\ 'file': '-o addopts="" --pdb'
 			\}
-" Python LSP
 " LSP
+" Python LSP
 lua << EOF
 	require'lspconfig'.pyright.setup{}
 	local nvim_lsp = require('lspconfig')
@@ -127,6 +141,10 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
 EOF
+
+" LaTeX LSP
+lua require'lspconfig'.texlab.setup{}
+
 set completeopt=menuone,noinsert,noselect
 let g:completion_matchin_strategy_list = ['exact', 'substring', 'fuzzy']
 
@@ -138,6 +156,18 @@ let g:vim_isort_config_overrides = {
 			\'use_parentheses': 'True',
 			\'ensure_newline_before_comments': 'True',
 			\'line_length': 88}
+
+" LaTeX
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+"     Spelling
+autocmd FileType latex setlocal spell
+autocmd FileType latex set spelllang=ger,en_gb
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>
+
 " Fugitive Git Commands
 nnoremap <leader>gm :Gdiff<CR>
 nnoremap gdh :diffget //2<CR>
@@ -176,6 +206,7 @@ require'bufferline'.setup{
   }
 }
 EOF
+
 " Search
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
@@ -205,7 +236,12 @@ nmap <silent> <leader>ta :TestSuite<CR>
 vmap <silent> <C-_> :call ToggleCommentVisual()<CR>
 nmap <silent> <C-_> :call ToggleCommentLine()<CR>
 
+" Filetree
+nnoremap <C-n> :NvimTreeToggle<CR>
+
 " Start screen config
+let g:webdevicons_enable_startify = 1
+let g:startify_use_env = 1
 let g:startify_lists = [
 	\{'type': 'sessions', 'header': ['	Sessions']},
 	\{'type': 'files', 'header': ['	Most Recent Files']},

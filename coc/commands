@@ -1,10 +1,11 @@
+formatJson
+python.runLinting
 pyright.organizeimports
 pyright.restartserver
 pyright.createtypestub
 python.sortImports
 document.jumpToNextSymbol
 python.execSelectionInTerminal
-formatJson
 python.setInterpreter
 explorer
 python.setLinter
