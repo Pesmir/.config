@@ -15,6 +15,7 @@ set incsearch
 set scrolloff=10
 set signcolumn=yes
 set colorcolumn=88
+set inccommand=nosplit
 
 " Define Leader Key as space
 let mapleader=" "
