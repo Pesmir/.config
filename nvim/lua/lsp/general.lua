@@ -11,15 +11,15 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
-local flake8 = {
-    LintCommand = "flake8 --stdin-display-name ${INPUT} -",
-    lintStdin = true,
-    lintFormats = {"%f:%l:%c: %m"}
-}
+--  local flake8 = {
+    --  LintCommand = "flake8-cached --stdin-display-name ${INPUT} -",
+    --  lintStdin = true,
+    --  lintFormats = {"%f:%l:%c: %m"}
+--  }
 local isort = {formatCommand = "isort --quiet --profile='black' -", formatStdin = true}
 local black = {formatCommand = "black --quiet -", formatStdin = true}
 
-table.insert(python_arguments, flake8)
+-- table.insert(python_arguments, flake8)
 table.insert(python_arguments, isort)
 table.insert(python_arguments, black)
 
