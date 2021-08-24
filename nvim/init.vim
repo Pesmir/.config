@@ -26,7 +26,35 @@ noremap <Left> <Nop>
 noremap <Right> <Nop>
 noremap <backspace> <Nop>
 
-" Install Plugins
+"local nightfox = require('nightfox')
+"
+"-- This function set the configuration of nightfox. If a value is not passed
+"in the setup function
+"-- it will be taken from the default configuration above
+"nightfox.setup({
+"  fox = "nordfox", -- change the colorscheme to use nordfox
+"    styles = {
+"        comments = "italic", -- change style of comments to be italic
+"            keywords = "bold", -- change style of keywords to be bold
+"                functions = "italic,bold" -- styles can be a comma separated
+"                list
+"                  },
+"                    colors = {
+"                        red = "#FF000", -- Override the red color for MAX
+"                        POWER
+"                            bg_alt = "#000000",
+"                              },
+"                                hlgroup = {
+"                                    TSPunctDelimiter = { fg = "${red}" }, --
+"                                    Override a highlight group with the color
+"                                    red
+"                                        LspCodeLens = { bg = "#000000" },
+"                                          }
+"                                          })
+"
+"                                          -- Load the configuration set above
+"                                          and apply the colorscheme
+"                                          nightfox.load()Install Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'mhinz/vim-startify' " start screen
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -95,6 +123,10 @@ call plug#end()
 " Terminal 
 tnoremap <Esc> <C-\><C-n>
 
+" colorscheme
+lua require('colorscheme')
+
+
 " Notes
 let g:notes_directories = ['~/Documents/Notes']
 vmap <Leader>ns :NoteFromSelectedText<CR>
@@ -148,9 +180,6 @@ nnoremap <leader>ggc :Git commit<CR>
 nnoremap <leader>ggp :Git push<CR>
 nnoremap <leader>gch:Git checkout -<CR>
 
-" Colorscheme
-let g:material_style = 'nordfox'
-colorscheme nightfox
 
 " Statusbar :
 lua << EOF
