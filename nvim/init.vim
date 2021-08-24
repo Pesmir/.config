@@ -13,6 +13,8 @@ set incsearch
 set scrolloff=10
 set signcolumn=yes
 set inccommand=nosplit
+set wildmode=longest,list,full
+set wildignore=*.o,*~
 
 " Define Leader Key as space
 let mapleader=" "
@@ -24,7 +26,6 @@ noremap <Left> <Nop>
 noremap <Right> <Nop>
 noremap <backspace> <Nop>
 
-" Install Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'mhinz/vim-startify' " start screen
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -93,6 +94,9 @@ call plug#end()
 " Terminal 
 tnoremap <Esc> <C-\><C-n>
 
+" colorscheme
+lua require('colorscheme')
+
 " Notes
 let g:notes_directories = ['~/Documents/Notes']
 vmap <Leader>ns :NoteFromSelectedText<CR>
@@ -146,16 +150,10 @@ nnoremap <leader>ggc :Git commit<CR>
 nnoremap <leader>ggp :Git push<CR>
 nnoremap <leader>gch:Git checkout -<CR>
 
-" Colorscheme
-set background=light
-let g:material_style = 'lighter'
-let g:material_lighter_contrast = v:true
-colorscheme nordfox
-
 " Statusbar :
 lua << EOF
 	require'lualine'.setup{
-		options = {theme = 'onelight'}
+		options = {theme = 'nightfox'}
 	}
 EOF
 lua << EOF
