@@ -97,6 +97,9 @@ tnoremap <Esc> <C-\><C-n>
 " colorscheme
 lua require('colorscheme')
 
+" Statusbar :
+lua require('statusbar')
+
 " Notes
 let g:notes_directories = ['~/Documents/Notes']
 vmap <Leader>ns :NoteFromSelectedText<CR>
@@ -150,12 +153,7 @@ nnoremap <leader>ggc :Git commit<CR>
 nnoremap <leader>ggp :Git push<CR>
 nnoremap <leader>gch:Git checkout -<CR>
 
-" Statusbar :
-lua << EOF
-	require'lualine'.setup{
-		options = {theme = 'nightfox'}
-	}
-EOF
+
 lua << EOF
 require'bufferline'.setup{
   options = {
